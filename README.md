@@ -1,15 +1,26 @@
-# William · Personal Portfolio
+# William Portfolio
 
-郭泽宇 / William 的个人作品集网站。
+William（郭泽宇）的个人作品集网站。
 
-在线访问：https://william-1219.github.io/william-portfolio/
+**在线访问：** https://william-1219.github.io/william-portfolio/
 
-本仓库通过 `site.zip` 保存已构建的静态网站，包含首页、作品、About Me 工牌交互及联系方式。GitHub Actions 解压该文件，并部署到 GitHub Pages。
+当前网站版本：**v3.32**。
 
-## 更新方式
+## 网站内容
 
-在本地 React + Vite 项目完成修改后运行 `npm run build`，把 `dist/` 里面的全部文件压缩为 `site.zip`，然后替换仓库根目录中的同名文件并提交到 `main` 分支，即会触发自动发布。
+- 星空主页与交互工牌 About Me
+- 交互设计、工业设计、IP 设计、AIGC 探索
+- 能力展示与联系方式
+- 项目内目录及跨项目切换
 
-压缩包根目录应直接包含 `index.html`、`assets/`、`fonts/`、`licenses/` 和 `.nojekyll`，不要多包一层 `dist/` 文件夹。可在仓库的 Actions 页面查看发布结果，也可手动运行部署工作流。
+## 发布文件
 
-第三方组件和字体的许可信息保留在发布包的 `licenses/`、`fonts/` 中。
+本仓库保存网站运行产物，不包含本地完整 React/Vite 源码归档。
+
+完整生产包按字节拆为 20 MiB 的分卷：`site.zip.part-001` 至 `site.zip.part-007`；`site.zip.sha256` 是重组后 `site.zip` 的 SHA256 校验文件。
+
+GitHub Actions 会按文件名顺序合并这些分卷，验证 SHA256，再解压并部署 GitHub Pages，公开网址保持不变。若分卷不存在，则兼容此前单文件 `site.zip` 的发布方式。
+
+后续更新需同时替换全部分卷及校验文件；如果新版本分卷数量减少，需删除多余旧分卷，避免它们被误合并。
+
+分卷与完整 ZIP 均只包含浏览器运行所需的 HTML、JS、CSS、图片、字体和视频等文件，不包含源码 ZIP、node_modules 或私密配置。
