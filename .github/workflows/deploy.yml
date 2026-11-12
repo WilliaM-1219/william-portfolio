@@ -26,7 +26,13 @@ jobs:
       - name: Extract production website
         run: |
           mkdir -p _site
-          unzip -q site.zip -d _site
+          if [ -f site.zip.part-001 ]; then
+            cat site.zip.part-* > "$RUNNER_TEMP/site.zip"
+            (cd "$RUNNER_TEMP" && sha256sum -c "$GITHUB_WORKSPACE/site.zip.sha256")
+            unzip -q "$RUNNER_TEMP/site.zip" -d _site
+          else
+            unzip -q site.zip -d _site
+          fi
           test -f _site/index.html
       - name: Configure Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d
