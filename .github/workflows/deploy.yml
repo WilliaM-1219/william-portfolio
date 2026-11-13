@@ -34,6 +34,11 @@ jobs:
             unzip -q site.zip -d _site
           fi
           test -f _site/index.html
+      - name: Apply checksum-verified runtime update
+        run: |
+          sha256sum -c runtime-update.zip.sha256
+          unzip -q -o runtime-update.zip -d _site
+          test -f _site/index.html
       - name: Configure Pages
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d
       - name: Upload website
